@@ -16,7 +16,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.WebDriverEventListener;
-import org.testng.Assert;
 
 public class WebDriverBuilder {
 
@@ -82,7 +81,6 @@ public class WebDriverBuilder {
 		try {
 			remoteAddress = new URL(LocalProperties.getGridHubName());
 		} catch (MalformedURLException e) {
-			Assert.fail("Selenium Grid address is malformed", e);
 		}
 		return remoteAddress;
 	}
@@ -94,7 +92,7 @@ public class WebDriverBuilder {
 		DesiredCapabilities cap = DesiredCapabilitiesFactory.makeDesiredCapabilities(browserName);
 
 		if (browserName.equalsIgnoreCase("firefox")) {
-			System.setProperty("webdriver.gecko.driver", userDir + File.separator + "resources" + File.separator + "browserDrivers" + File.separator + "geckodriver");
+			System.setProperty("webdriver.gecko.driver", userDir + File.separator + "resources" + File.separator + "browserDrivers" + File.separator + "geckodriver.exe");
 			System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE, "true");
 			System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
@@ -108,7 +106,7 @@ public class WebDriverBuilder {
 			FirefoxOptions firefoxOptions = new FirefoxOptions(cap);
 			driver = new FirefoxDriver(firefoxOptions);
 		} else if (browserName.equalsIgnoreCase("chrome")) {
-			System.setProperty("webdriver.chrome.driver", userDir + File.separator + "resources" + File.separator + "browserDrivers" + File.separator + "chromedriver");
+			System.setProperty("webdriver.chrome.driver", userDir + File.separator + "resources" + File.separator + "browserDrivers" + File.separator + "chromedriver.exe");
 			driver = new ChromeDriver(cap);
 		} else {
 			throw new RuntimeException("This browser is not supported yet by the automation team");
