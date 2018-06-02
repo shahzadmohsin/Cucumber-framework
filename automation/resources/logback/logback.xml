@@ -1,0 +1,32 @@
+<configuration>
+	<appender name="SIFT" class="ch.qos.logback.classic.sift.SiftingAppender">
+
+		<discriminator>
+			<key>userid</key>
+			<defaultValue>abc</defaultValue>
+		</discriminator>
+
+		<sift>
+			<appender name="FILE-${userid}" class="ch.qos.logback.core.FileAppender">
+				<file>${userid}.log</file>
+				<append>false</append>
+				<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+					<pattern>%d [%4F:%t:%L] - %m%n</pattern>
+				</encoder>
+			</appender>
+		</sift>
+	</appender>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d [%4F:%t:%L] - %m%n
+			</Pattern>
+		</encoder>
+	</appender>
+
+	<root level="DEBUG">
+		<appender-ref ref="SIFT" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
